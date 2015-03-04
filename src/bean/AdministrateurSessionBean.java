@@ -69,25 +69,37 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
     
     
     public void inscription(){
+    	
     	try{
     	  EntityManager em = null;
           em = getEntityManager();
           em.getTransaction().begin();
           
           Administrateur a = new Administrateur();
-          a.setLogin(administrateur.getLogin());
-          a.setMotDePasse(administrateur.getMotDePasse());
+          
           a.setNom(administrateur.getNom());
           a.setPrenom(administrateur.getPrenom());
+          a.setLogin(administrateur.getLogin());
+          a.setMotDePasse(administrateur.getMotDePasse());
+         
+//          a.setNom("azzae");
+//          a.setPrenom("aze");
+//          a.setLogin("test");
+//          a.setMotDePasse("test");
+         
+          
         
           em.persist(a);
           em.getTransaction().commit();
-          
-          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "SUCCES INSCRIPTION" ));
-
+          em.clear();
     	}catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "ERREUR INSCRIPTION" ));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "ERREUR INSCRIPTION"));
+
     	}
+          
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "SUCCES INSCRIPTION"));
+
+    
           
           
     }
@@ -119,7 +131,7 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
    }
    
    public void setNomAdministrateur(String nom){
-	   administrateur.setMotDePasse(nom);
+	   administrateur.setNom(nom);
    }
    
    public String getPrenomAdministrateur(){
@@ -127,7 +139,7 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
    }
    
    public void setPrenomAdministrateur(String prenom){
-	   administrateur.setMotDePasse(prenom);
+	   administrateur.setPrenom(prenom);
    }
 
 }
