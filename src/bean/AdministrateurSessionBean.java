@@ -1,8 +1,13 @@
 package bean;
 
+import java.io.IOException;
+
 import javax.ejb.Stateful;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -32,23 +37,64 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
 
     
     
-    public String verificationConnexion(){
+    public boolean verificationConnexion() throws IOException{
     	
         EntityManager em = null;
-        String retour = "PASOK";
+        boolean retour = false;
         em = getEntityManager();
         em.getTransaction().begin();
         Query q = em.createNamedQuery("Administrateur.findByLogin");
         q.setParameter("LoginAdministrateur", administrateur.getLogin());
         Administrateur a = (Administrateur) q.getSingleResult();
+        FacesContext ctx = FacesContext.getCurrentInstance(); 
+
         
         if(a.getMotDePasse().equals(administrateur.getMotDePasse())){
-        	retour = "OK";
-        }
+        	retour = true;
+        	   ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+               ec.redirect(ec.getRequestContextPath() + "/bienvenue.xhtml");
 
+        }else{
+        	//FacesMessage message = new FacesMessage( "ERREUR DE CONNEXION" );
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "ERRxEUR DE CONNEXION" ));
+        	
+        	// ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            // ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+        }
+        
     	return retour;
     	  	
     }
+    
+    
+    
+    public void inscription(){
+    	try{
+    	  EntityManager em = null;
+          em = getEntityManager();
+          em.getTransaction().begin();
+          
+          Administrateur a = new Administrateur();
+          a.setLogin(administrateur.getLogin());
+          a.setMotDePasse(administrateur.getMotDePasse());
+          a.setNom(administrateur.getNom());
+          a.setPrenom(administrateur.getPrenom());
+        
+          em.persist(a);
+          em.getTransaction().commit();
+          
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "SUCCES INSCRIPTION" ));
+
+    	}catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "ERREUR INSCRIPTION" ));
+    	}
+          
+          
+    }
+    
+    
+    
+    
     
     
     
@@ -68,5 +114,20 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
 	   return administrateur.getMotDePasse();
    }
    
+   public String getNomAdministrateur(){
+	   return administrateur.getNom();
+   }
+   
+   public void setNomAdministrateur(String nom){
+	   administrateur.setMotDePasse(nom);
+   }
+   
+   public String getPrenomAdministrateur(){
+	   return administrateur.getPrenom();
+   }
+   
+   public void setPrenomAdministrateur(String prenom){
+	   administrateur.setMotDePasse(prenom);
+   }
 
 }

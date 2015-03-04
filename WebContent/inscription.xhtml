@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Premier exemple JSF 2.0</title>
+    </h:head>
+    <h:body>
+    	<h1>Premier exemple JSF 2.0 </h1>
+ <h:form>
+         <fieldset>
+         	<legend>Inscription</legend>
+	           <h:outputLabel for="nom">Nom d'utilisateur <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="nom" value="#{administrateurSessionBean.nomAdministrateur}" required="true" size="20" maxlength="20" />
+	        <h:message id="nomAdministrateur" for="nom" errorClass="erreur" />
+	        <br />
+	
+	        <h:outputLabel for="prenom">Prénom <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="prenom" value="#{administrateurSessionBean.prenomAdministrateur}" required="true" size="20" maxlength="20" />
+	        <h:message id="prenomAdministrateur" for="prenom" errorClass="erreur" />
+	        <br />
+	        
+	         <h:outputLabel for="login">Login <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="login" value="#{administrateurSessionBean.loginAdministrateur}" required="true" size="20" maxlength="20" />
+	        <h:message id="loginAdministrateur" for="login" errorClass="erreur" />
+	        <br />
+	        
+	         <h:outputLabel for="motDePasse">Mot de passe <span class="requis">*</span></h:outputLabel>
+	        <h:inputSecret id="motDePasse" value="#{administrateurSessionBean.motDePasseAdministrateur}" required="true" size="20" maxlength="20" />
+	        <h:message id="motDePasseAdministrateur" for="motDePasse" errorClass="erreur" />
+	        <br />
+	
+<!-- 	        <h:outputLabel for="confirmation">Confirmation du mot de passe <span class="requis">*</span></h:outputLabel> -->
+<!-- 	        <h:inputSecret id="confirmation" value="#{inscrireBean.utilisateur.motDePasse}" required="true" size="20" maxlength="20" /> -->
+<!-- 	        <h:message id="confirmationMotDePasse" for="confirmation" errorClass="erreur" /> -->
+<!-- 	        <br /> -->
+	
+	  
+	        
+	        <h:messages globalOnly="true" infoClass="info" />
+	
+	        <h:commandButton value="Inscription" action="#{administrateurSessionBean.inscription}" styleClass="sansLabel" />
+	        <br />
+          </fieldset>
+        </h:form> 	
+ 
+ 
+ 
+ 
+    </h:body>
+</html>

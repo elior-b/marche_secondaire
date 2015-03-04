@@ -7,10 +7,7 @@ package utilitaire;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-/**
- *
- * @author dchamail
- */
+
 public class JavaPersistenceUtilitaire {
 
     public static EntityManagerFactory emf;
