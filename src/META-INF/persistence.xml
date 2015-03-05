@@ -7,7 +7,6 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<jta-data-source>java:jboss/datasources/MaDSMySQL</jta-data-source>
-
 		<class>model.Administrateur</class>
 		<class>model.Contrat</class>
 		<class>model.DonneeFinanciere</class>

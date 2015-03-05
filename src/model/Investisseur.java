@@ -19,6 +19,10 @@ public class Investisseur implements Serializable {
 
 	private String carteBleue;
 
+	private String cryptogramme;
+
+	private String email;
+
 	private String login;
 
 	private String motDePasse;
@@ -29,7 +33,7 @@ public class Investisseur implements Serializable {
 
 	private double solde;
 
-	private byte statut;
+	private Object statut;
 
 	//bi-directional many-to-one association to Contrat
 	@OneToMany(mappedBy="investisseur")
@@ -64,6 +68,22 @@ public class Investisseur implements Serializable {
 
 	public void setCarteBleue(String carteBleue) {
 		this.carteBleue = carteBleue;
+	}
+
+	public String getCryptogramme() {
+		return this.cryptogramme;
+	}
+
+	public void setCryptogramme(String cryptogramme) {
+		this.cryptogramme = cryptogramme;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getLogin() {
@@ -106,11 +126,11 @@ public class Investisseur implements Serializable {
 		this.solde = solde;
 	}
 
-	public byte getStatut() {
+	public Object getStatut() {
 		return this.statut;
 	}
 
-	public void setStatut(byte statut) {
+	public void setStatut(Object statut) {
 		this.statut = statut;
 	}
 

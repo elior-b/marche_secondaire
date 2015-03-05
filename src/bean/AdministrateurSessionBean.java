@@ -56,7 +56,7 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
 
         }else{
         	//FacesMessage message = new FacesMessage( "ERREUR DE CONNEXION" );
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "ERRxEUR DE CONNEXION" ));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( "ERREUR DE CONNEXION" ));
         	
         	// ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             // ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
@@ -141,5 +141,8 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
    public void setPrenomAdministrateur(String prenom){
 	   administrateur.setPrenom(prenom);
    }
+   
+   
+   
 
 }

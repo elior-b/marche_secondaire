@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Inscription Investisseur</title>
+    </h:head>
+    <h:body>
+    	<h1>Inscription Investisseur</h1>
+ <h:form>
+         <fieldset>
+         	<legend>Inscription</legend>
+	        <h:outputLabel for="nom">Nom  <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="nom" value="#{investisseurSessionBean.nomInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:message id="nomInvestisseur" for="nom" errorClass="erreur" />
+	        <br />
+	
+	        <h:outputLabel for="prenom">Prénom <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="prenom" value="#{investisseurSessionBean.prenomInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:message id="prenomInvestisseur" for="prenom" errorClass="erreur" />
+	        <br />
+	        
+	         <h:outputLabel for="email">E-mail <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="email" value="#{investisseurSessionBean.emailInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:message id="emailInvestisseur" for="email" errorClass="erreur" />
+	        <br />
+	        
+	         <h:outputLabel for="solde">Votre solde  <span class="requis">*</span></h:outputLabel>
+	        <h:inputSecret id="solde" value="#{investisseurSessionBean.soldeInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:message id="soldeInvestisseur" for="solde" errorClass="erreur" />
+	        <br />
+	        
+	          <h:outputLabel for="carteBleue">Numero Carte Bleue  <span class="requis">*</span></h:outputLabel>
+	        <h:inputSecret id="carteBleue" value="#{investisseurSessionBean.carteBleueInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:message id="carteBleueInvestisseur" for="carteBleue" errorClass="erreur" />
+	        <br />
+	        
+	          <h:outputLabel for="cryptogramme">Cryptogramme <span class="requis">*</span></h:outputLabel>
+	        <h:inputSecret id="cryptogramme" value="#{investisseurSessionBean.cryptogrammeInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:message id="cryptogrammeInvestisseur" for="cryptogramme" errorClass="erreur" />
+	        <br />
+	
+	        
+	        <h:messages globalOnly="true" infoClass="info" />
+	
+	        <h:commandButton value="Validez Votre Incription" action="#{investisseurSessionBean.inscriptionInvestisseur}" styleClass="sansLabel" />
+	        <br />
+          </fieldset>
+        </h:form> 	
+ 
+ 
+ 
+ 
+    </h:body>
+</html>

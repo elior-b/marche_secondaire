@@ -10,10 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQueries({
-@NamedQuery(name="Administrateur.findAll", query="SELECT a FROM Administrateur a"),
-@NamedQuery(name="Administrateur.findByLogin", query="SELECT a FROM Administrateur a WHERE a.login = :LoginAdministrateur ")
-})
+@NamedQuery(name="Administrateur.findAll", query="SELECT a FROM Administrateur a")
 public class Administrateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 
