@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+ <PROCESS-ITEM NAME="rules:#index2.xhtml" PATH="/index2.xhtml"
   SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
-   PATH="/index.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="::#index.xhtml" NAME="output"
-    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="[any]" model-entity="JSFProcessItemOutput"/>
+  <PROCESS-ITEM ID="rules:#index2.xhtml:0" NAME="item"
+   PATH="/index2.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="::#index2.xhtml" NAME="output"
+    PATH="/index2.xhtml" TARGET="rules:#index2.xhtml" TITLE="[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#public#ComplementInformationsInvestisseur.xhtml"
+  PATH="/public/ComplementInformationsInvestisseur.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#public#ComplementInformationsInvestisseur.xhtml:0"
+   NAME="item" PATH="/public/ComplementInformationsInvestisseur.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="::#public#ComplementInformationsInvestisseur.xhtml"
+    NAME="output"
+    PATH="/public/ComplementInformationsInvestisseur.xhtml"
+    TARGET="rules:#public#ComplementInformationsInvestisseur.xhtml"
+    TITLE="[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>

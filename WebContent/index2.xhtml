@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Premier exemple JSF 2.0</title>
+    </h:head>
+    <h:body>
+    	<h1>Premier exemple JSF 2.0 </h1>
+    	<h:form>
+    	<p> Login </p>
+    	   <h:inputText id="login" value="#{administrateurSessionBean.loginAdministrateur}" />
+ 	   
+    	 <p> Mot De Passe </p> 
+    	 <h:inputText id="motDePasse" value="#{administrateurSessionBean.motDePasseAdministrateur}" />
+    	 <br></br>
+   	 
+    	 	        <h:messages globalOnly="true" infoClass="info" />
+    	 
+    	 
+    	 <h:commandButton value="Connexion" action="#{administrateurSessionBean.verificationConnexion}" />  
+    	</h:form>
+    	    	 <h:button value="Inscriptionn" action="./inscription.xhtml"></h:button>
+    	    	 <input type="button" onclick="window.location.href='/marche_secondaire/public/InscriptionInvestisseur.xhtml'; return false;" value="TESTInscriptionn" />
+    	
+    </h:body>
+    
+</html>

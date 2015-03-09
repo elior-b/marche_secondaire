@@ -25,19 +25,30 @@
 	        <br />
 	        
 	         <h:outputLabel for="solde">Votre solde  <span class="requis">*</span></h:outputLabel>
-	        <h:inputSecret id="solde" value="#{investisseurSessionBean.soldeInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:inputText id="solde" value="#{investisseurSessionBean.soldeInvestisseur}" required="true" size="20" maxlength="20" />
 	        <h:message id="soldeInvestisseur" for="solde" errorClass="erreur" />
 	        <br />
 	        
 	          <h:outputLabel for="carteBleue">Numero Carte Bleue  <span class="requis">*</span></h:outputLabel>
-	        <h:inputSecret id="carteBleue" value="#{investisseurSessionBean.carteBleueInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:inputText id="carteBleue" value="#{investisseurSessionBean.carteBleueInvestisseur}" required="true" size="20" maxlength="20" />
 	        <h:message id="carteBleueInvestisseur" for="carteBleue" errorClass="erreur" />
 	        <br />
 	        
 	          <h:outputLabel for="cryptogramme">Cryptogramme <span class="requis">*</span></h:outputLabel>
-	        <h:inputSecret id="cryptogramme" value="#{investisseurSessionBean.cryptogrammeInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:inputText id="cryptogramme" value="#{investisseurSessionBean.cryptogrammeInvestisseur}" required="true" size="20" maxlength="20" />
 	        <h:message id="cryptogrammeInvestisseur" for="cryptogramme" errorClass="erreur" />
 	        <br />
+	        
+	          <h:outputLabel for="motDePasse">Mot De passe <span class="requis">*</span></h:outputLabel>
+	        <h:inputSecret id="motDePasse" value="#{investisseurSessionBean.motDePasseInvestisseur}" required="true" size="20" maxlength="20" />
+	        <h:message id="motDePasseInvestisseur" for="motDePasse" errorClass="erreur" />
+	        <br />
+	        
+	          <h:outputLabel for="confirmationMotDePasse">Confirmation Mot De passe <span class="requis">*</span></h:outputLabel>
+	        <h:inputSecret id="confirmationMotDePasse" value="#{investisseurSessionBean.confirmationMotDePasse}" required="true" size="20" maxlength="20" />
+	        <h:message id="confirmationMotDePasseInvestisseur" for="confirmationMotDePasse" errorClass="erreur" />
+	        <br />
+	
 	
 	        
 	        <h:messages globalOnly="true" infoClass="info" />
@@ -46,8 +57,8 @@
 	        <br />
           </fieldset>
         </h:form> 	
- 
- 
+        
+       
  
  
     </h:body>

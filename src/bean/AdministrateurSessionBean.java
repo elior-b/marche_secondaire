@@ -47,11 +47,14 @@ public class AdministrateurSessionBean extends JavaPersistenceUtilitaire {
         q.setParameter("LoginAdministrateur", administrateur.getLogin());
         Administrateur a = (Administrateur) q.getSingleResult();
         FacesContext ctx = FacesContext.getCurrentInstance(); 
+        em.close();
 
         
         if(a.getMotDePasse().equals(administrateur.getMotDePasse())){
         	retour = true;
         	   ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        	   ec.getSessionMap().put("test","JE TEST");
+
                ec.redirect(ec.getRequestContextPath() + "/bienvenue.xhtml");
 
         }else{

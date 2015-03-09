@@ -1,0 +1,57 @@
+body{
+    background: url(../img/font.png);
+}
+.img-icon{
+    float:left;
+    padding:10px
+}
+p{
+    text-align: justify;
+}
+.jumbotron .btn{
+    padding:6px 12px!important;
+    font-size: 14px!important;
+}
+#presentation-index{
+    
+}
+#enregistrement-index{
+    display:none;
+}
+#company-index{
+    padding-top:20px;
+}
+#company-data{
+    padding-top:20px;
+    display:none;
+}
+.table-bordered{
+    border: 1px solid #ccc!important;
+}
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+     border: 1px solid #ccc!important;
+}
+
+.table-format th {
+	width: 20%;
+}
+.table-format td:nth-child(2n+2):not(:last-child) {
+	width:30%;
+}
+.table thead tr.grey > th, .table-format th, .grey {
+	background-color: #ddd;
+}
+.table-min-width {
+	margin-bottom: 10px;
+}
+.nav-tabs{
+    border-bottom: 1px solid #ccc!important;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    background: url(../img/font.png);
+    border: 1px solid #ccc!important;
+    border-bottom-color: transparent!important;
+}
+.nav-tabs>li>a:focus, .nav-tabs>li>a:hover{
+    background: #ddd;
+}

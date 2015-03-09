@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Accueil du site - Dauphine Second Market </title>
+        <h:outputStylesheet library="css" name ="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name ="carousel.css" />
+        <h:outputStylesheet library="css" name ="bootstrap-theme.min.css" />
+        <h:outputStylesheet library="css" name ="navbar-fixed-top.css" />
+        <h:outputStylesheet library="css" name ="application.css" />      
+        
+    </h:head>
+    
+        <h:outputScript library="js" name="jquery-2.1.3.min.js" />
+		<h:outputScript library="js" name="bootstrap.min.js" />
+		<h:outputScript library="js" name="docs.min.js" />
+		<h:outputScript library="js" name="application.js" />
+ <h:body>
+   <ui:include src="Header.xhtml" />
+   <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{applicationScopeBean.preRenderView}"/>
+   <div class="container">
+      <div class="row">
+            <h1>Les Données Financières</h1><br/>
+            <h:form class="form-horizontal">
+              <div class="form-group">
+       		 <h:outputLabel  class="col-sm-2 control-label" for="annee">Année</h:outputLabel>
+                <div class="col-sm-10">
+	    		<h:inputText class="form-control" id="annee" value="#{donneeFinanciereSessionBean.anneeDonneeFinanciere}"  />
+	    		<h:message id="anneeDonneesFinancieres" for="annee" errorClass="erreur" />
+                </div>
+              </div>
+              <div class="form-group">
+       		 <h:outputLabel class="col-sm-2 control-label" for="pnb">PNB</h:outputLabel>
+                <div class="col-sm-10">
+	    		<h:inputText class="form-control" id="pnb" value="#{donneeFinanciereSessionBean.pnbDonneeFinanciere}" required="true" size="20" maxlength="20" />               	        
+	    		<h:message id="pnbDonneesFinancieres" for="pnb" errorClass="erreur" />
+                </div>
+              </div>
+              <div class="form-group">
+       		 <h:outputLabel class="col-sm-2 control-label" for="ca">Chiffre Affaire</h:outputLabel>
+                <div class="col-sm-10">
+	    		<h:inputText  class="form-control" id="ca" value="#{donneeFinanciereSessionBean.caDonneeFinanciere}" required="true" size="20" maxlength="20" />               	        
+	    		<h:message id="caDonneesFinancieres" for="ca" errorClass="erreur" />
+                </div>
+              </div>
+              <div class="form-group">
+       		 <h:outputLabel class="col-sm-2 control-label" for="rex">REX</h:outputLabel>
+                <div class="col-sm-10">
+	    		<h:inputText  class="form-control" id="rex" value="#{donneeFinanciereSessionBean.rexDonneeFinanciere}" required="true" size="20" maxlength="20" />               	        
+	    		<h:message id="rexDonneesFinancieres" for="rex" errorClass="erreur" />
+                </div>
+              </div>
+              <div class="form-group">
+       		 <h:outputLabel class="col-sm-2 control-label" for="coutRisque">Coût Risque</h:outputLabel>
+                <div class="col-sm-10">
+	    		<h:inputText  class="form-control" id="coutRisque" value="#{donneeFinanciereSessionBean.coutRisqueDonneeFinanciere}" required="true" size="20" maxlength="20" />               	        
+	    		<h:message id="coupRisqueDonneesFinancieres" for="coutRisque" errorClass="erreur" />
+                </div>
+              </div>
+              <div class="form-group">
+       		 <h:outputLabel class="col-sm-2 control-label" for="rcai">RCAI</h:outputLabel>
+                <div class="col-sm-10">
+	    		<h:inputText class="form-control" id="rcai" value="#{donneeFinanciereSessionBean.rcaiDonneeFinanciere}" required="true" size="2" maxlength="20" />               	        
+	    		<h:message id="rcaiDonneesFinancieres" for="rcai" errorClass="erreur" />
+                </div>
+              </div>
+              <div class="form-group">
+       		 <h:outputLabel class="col-sm-2 control-label" for="rn">Résultat net</h:outputLabel>
+                <div class="col-sm-10">
+	    		<h:inputText class="form-control" id="rn" value="#{donneeFinanciereSessionBean.rnDonneeFinanciere}" required="true" size="20" maxlength="20" />               	        
+	    		<h:message id="rnDonneesFinancieres" for="rn" errorClass="erreur" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+				 <h:commandButton class="btn btn-default" type="reset" value="Annuler" />&nbsp;
+                 <h:commandButton class="btn btn-success"  value="Valider" action="#{donneeFinanciereSessionBean.ajoutDonneesFinancieres}" styleClass="sansLabel" />                 
+                </div>
+              </div>
+            </h:form> 
+        </div>
+        </div>
+</h:body>
+</html>
+   

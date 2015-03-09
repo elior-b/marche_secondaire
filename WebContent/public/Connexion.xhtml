@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Accueil du site - Dauphine Second Market </title>
+        <h:outputStylesheet library="css" name ="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name ="carousel.css" />
+        <h:outputStylesheet library="css" name ="bootstrap-theme.min.css" />
+        <h:outputStylesheet library="css" name ="cover.css" />
+           
+    </h:head>
+      <h:outputScript library="js" name="jquery-2.1.3.min.js" />
+		<h:outputScript library="js" name="bootstrap.min.js" />
+		<h:outputScript library="js" name="docs.min.js" />
+		<h:outputScript library="js" name="application.js" />
+
+    <h:body>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+            
+          <div class="masthead clearfix">
+            <div class="inner">
+                <h1 class="masthead-brand">Dauphine Bank</h1>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="#">Connexion</a></li>
+                 
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">Interface de connexion</h1><br />
+              <fieldeset>
+ <h:form class="form-horizontal">
+                    <div class="form-group">
+                         <h:outputLabel for="login" class="col-sm-3 control-label">Identifiant</h:outputLabel>
+                        <div class="col-sm-8">
+						<h:inputText id="login" name="id" value="#{connexionSessionBean.login}"  class="form-control" placeholder="Identifiant" required="true" size="20" maxlength="20" />
+	        			<h:message id="log" for="log" errorClass="erreur" />                        
+	        			</div>    
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="motDePasse" class="col-sm-3 control-label">Mot De Passe</h:outputLabel>
+                        <div class="col-sm-8">
+						<h:inputText id="motDePasse" name="motDePasse" value="#{connexionSessionBean.motDePasse}"  class="form-control" placeholder="Mot De Passe" required="true" size="20" maxlength="20" />
+	        			<h:message id="mdp" for="mdp" errorClass="erreur" /> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-12">
+                           <h:commandButton class="btn btn-default" type="reset" value="Annuler" />&nbsp;
+                           <h:commandButton class="btn btn-success"  value="Valider" action="#{connexionSessionBean.ValidationConnexion}" />
+                            
+                        </div>
+                    </div>
+              <h:messages globalOnly="true" infoClass="info" />
+                   
+                 </h:form>
+        </fieldeset>        
+          </div>
+         
+         
+         
+          <div class="mastfoot">
+            <div class="inner">
+                <p> Dauphine 2nd Market </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     </h:body>
+</html>
+

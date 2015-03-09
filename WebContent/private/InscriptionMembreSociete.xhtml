@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Inscription Membre Société</title>
+    </h:head>
+    <h:body>
+    	<h1>Inscription Membre de Société</h1>
+ <h:form>
+         <fieldset>
+         	<legend>Inscription</legend>
+	        <h:outputLabel for="nom">Nom  <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="nom" value="#{membreSocieteSessionBean.nomMembreSociete}" required="true" size="20" maxlength="20" />
+	        <h:message id="nomMembreSociete" for="nom" errorClass="erreur" />
+	        <br />
+	
+	        <h:outputLabel for="prenom">Prénom <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="prenom" value="#{membreSocieteSessionBean.prenomMembreSociete}" required="true" size="20" maxlength="20" />
+	        <h:message id="prenomMembreSociete" for="prenom" errorClass="erreur" />
+	        <br />
+	        
+	         <h:outputLabel for="email">E-mail <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="email" value="#{membreSocieteSessionBean.emailMembreSociete}" required="true" size="20" maxlength="20" />
+	        <h:message id="emaiMembreSociete" for="email" errorClass="erreur" />
+	        <br />
+	        
+	        <h:outputLabel for="motDePasse">Mot de passe <span class="requis">*</span></h:outputLabel>
+	        <h:inputText id="motDePasse" value="#{membreSocieteSessionBean.motDePasseMembreSociete}" required="true" size="20" maxlength="20" />
+	        <h:message id="motDePasseMembreSociete" for="email" errorClass="erreur" />
+	        <br />
+	        
+	        
+	        <h:selectOneMenu value="#{membreSocieteSessionBean.responseSelect}">
+	        	<f:selectItems value = "#{societeSessionBean.listeSocietes}" var="societe"  itemValue="#{societe.id}" itemLabel="#{societe.nom}"/>
+	        </h:selectOneMenu>
+	        
+	        <h:messages globalOnly="true" infoClass="info" />
+	
+	        <h:commandButton value="Validez Votre Incription" action="#{membreSocieteSessionBean.inscription}" styleClass="sansLabel" />
+	        <br />
+	       
+	
+          </fieldset>
+        </h:form> 	
+ 
+ 
+ 
+ 
+    </h:body>
+</html>

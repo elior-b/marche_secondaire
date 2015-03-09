@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="marche_secondaire" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<jta-data-source>java:jboss/datasources/MaDSMySQL</jta-data-source>
+		<class>model.Administrateur</class>
+		<class>model.Contrat</class>
+		<class>model.DonneeFinanciere</class>
+		<class>model.Enchere</class>
+		<class>model.Investisseur</class>
+		<class>model.MembreSociete</class>
+		<class>model.Offre</class>
+		<class>model.Societe</class>
+		<class>model.Transaction</class>
+		<class>model.TypeContrat</class>
+		<class>model.TypeOffre</class>
+
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+
+
+		</properties>
+
+
+
+
+	</persistence-unit>
+</persistence>
