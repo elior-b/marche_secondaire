@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Accueil du site - Dauphine Second Market</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="carousel.css" />
+	<h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+	<h:outputStylesheet library="css" name="navbar-fixed-top.css" />
+	<h:outputStylesheet library="css" name="dashboard.css" />
+	<h:outputStylesheet library="css" name="application.css" />
+
+</h:head>
+
+<h:outputScript library="js" name="jquery-2.1.3.min.js" />
+<h:outputScript library="js" name="bootstrap.min.js" />
+<h:outputScript library="js" name="docs.min.js" />
+<h:outputScript library="js" name="application.js" />
+<h:body>
+	<ui:include src="Header.xhtml" />
+	<div class="container-fluid">
+		<div class="row">
+			<ui:include src="Menu.xhtml" />
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h2>
+					<h:graphicImage value="/resources/img/investor.png"
+						class="img-title" alt="form" />
+					Création d'un membre societe
+				</h2>
+				<br />
+				<h:form class="form-horizontal">
+					<div class="form-group">
+
+						<h:outputLabel class="col-sm-2 control-label" for="nom">Nom</h:outputLabel>
+						<div class="col-sm-10">
+							<h:inputText class="form-control" id="nom"
+								value="#{membreSocieteSessionBean.nomMembreSociete}"
+								required="true" size="20" maxlength="20" />
+							<h:message id="nomMembreSociete" for="nom" errorClass="erreur" />
+						</div>
+					</div>
+					<div class="form-group">
+
+						<h:outputLabel class="col-sm-2 control-label" for="nom">Prénom</h:outputLabel>
+						<div class="col-sm-10">
+							<h:inputText class="form-control" id="prenom"
+								value="#{membreSocieteSessionBean.prenomMembreSociete}"
+								required="true" size="20" maxlength="20" />
+							<h:message id="prenomMembreSociete" for="prenom"
+								errorClass="erreur" />
+						</div>
+					</div>
+					<div class="form-group">
+
+						<h:outputLabel class="col-sm-2 control-label" for="email">E-mail</h:outputLabel>
+						<div class="col-sm-10">
+							<h:inputText class="form-control" id="email"
+								value="#{membreSocieteSessionBean.emailMembreSociete}"
+								required="true" size="20" maxlength="50" />
+							<h:message id="emailMembreSociete" for="email"
+								errorClass="erreur" />
+						</div>
+					</div>
+					<div class="form-group">
+
+						<h:outputLabel class="col-sm-2 control-label" for="motDePasse">Mot de passe</h:outputLabel>
+						<div class="col-sm-10">
+							<h:inputSecret class="form-control" id="motDePasse"
+								value="#{membreSocieteSessionBean.motDePasseMembreSociete}"
+								required="true" size="20" maxlength="50" />
+							<h:message id="motDePasseMembreSociete" for="motDePasse"
+								errorClass="erreur" />
+						</div>
+					</div>
+					<div class="form-group">
+
+						<h:outputLabel class="col-sm-2 control-label"
+							for="confirmationMotDePasse">Confirmation</h:outputLabel>
+						<div class="col-sm-10">
+							<h:inputSecret class="form-control" id="confirmationMotDePasse"
+								value="#{membreSocieteSessionBean.confirmationMotDePasse}"
+								required="true" size="20" maxlength="50" />
+							<h:message id="confirmationMotDePasseMembreSociete"
+								for="confirmationMotDePasse" errorClass="erreur" />
+						</div>
+					</div>
+
+					<div class="form-group">
+
+						<h:outputLabel class="col-sm-2 control-label" for="societe">Société</h:outputLabel>
+						<div class="col-sm-10">
+							<h:selectOneMenu class="form-control" id="societe"
+								value="#{membreSocieteSessionBean.responseSelectSociete}">
+								<f:selectItems value="#{societeSessionBean.listeSocietes}"
+									var="societe" itemValue="#{societe.id}"
+									itemLabel="#{societe.nom}" />
+							</h:selectOneMenu>
+							<h:message id="societeMembreSociete" for="societe"
+								errorClass="erreur" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<h:commandButton class="btn btn-default" type="reset"
+								value="Annuler" />
+							&nbsp;
+							<h:commandButton class="btn btn-success" value="Valider"
+								action="#{membreSocieteSessionBean.inscription}"
+								styleClass="sansLabel" />
+						</div>
+					</div>
+					<ui:repeat value="#{facesContext.messageList}" var="facesMessage">
+						<ui:fragment rendered="#{facesMessage.summary eq 'Erreur !'}">
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4>
+									<h:outputText value="#{facesMessage.summary}" />
+								</h4>
+								<h:outputText value="#{facesMessage.detail}" />
+							</div>
+						</ui:fragment>
+					</ui:repeat>
+					<h:messages globalOnly="false" style="display:none" />
+
+				</h:form>
+			</div>
+		</div>
+	</div>
+
+
+	<footer> </footer>
+</h:body>
+</html>

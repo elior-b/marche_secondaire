@@ -22,69 +22,48 @@ import utilitaire.JavaPersistenceUtilitaire;
  */
 @ManagedBean
 @RequestScoped
-public class TypeContratSessionBean extends JavaPersistenceUtilitaire{
+public class TypeContratSessionBean extends JavaPersistenceUtilitaire {
 	TypeContrat typeContrat = new TypeContrat();
 	private List<TypeContrat> listeTypeContrat;
-	
 
+	// EntityManager em;
 
-	@PostConstruct
-	public void init() {
-		EntityManager em;
-        em = getEntityManager();
-        em.getTransaction().begin();
-	    listeTypeContrat = recupererListeTypeContrat(em);
-	    em.close();
+	/**
+	 * Default constructor.
+	 */
+	public TypeContratSessionBean() {
+		// TODO Auto-generated constructor stub
+		emf = JavaPersistenceUtilitaire.getEmf();
 	}
-	
-	
-    public TypeContrat getTypeContrat() {
+
+	private EntityManager getEntityManager() {
+		return emf.createEntityManager();
+	}
+
+	public TypeContrat getTypeContrat() {
+
 		return typeContrat;
 	}
-
 
 	public void setTypeContrat(TypeContrat typeContrat) {
 		this.typeContrat = typeContrat;
 	}
 
-
 	public List<TypeContrat> getListeTypeContrat() {
+		EntityManager em = null;
+		em = getEntityManager();
+
+		em.getTransaction().begin();
+		Query q = em.createNamedQuery("TypeContrat.findAll");
+		listeTypeContrat = q.getResultList();
+		em.clear();
+		em.close();
 		return listeTypeContrat;
 	}
-
 
 	public void setListeTypeContrat(List<TypeContrat> listeTypeContrat) {
 		this.listeTypeContrat = listeTypeContrat;
 	}
-
-
-	/**
-     * Default constructor. 
-     */
-    public  TypeContratSessionBean() {
-        // TODO Auto-generated constructor stub
-		emf = JavaPersistenceUtilitaire.getEmf();
-    }
-    
-	private EntityManager getEntityManager() {
-		return emf.createEntityManager();
-	}
-	
-	public List<TypeContrat> recupererListeTypeContrat(EntityManager em){
-		
-        Query q = em.createNamedQuery("TypeContrat.findAll");
-        List<TypeContrat> l = q.getResultList();
-        em.close();
-		return l;
-	}
-
-	
-	
-	
-	
-	
-	
-	
 
 	public int getIdTypeContrat() {
 		return typeContrat.getId();
@@ -101,7 +80,5 @@ public class TypeContratSessionBean extends JavaPersistenceUtilitaire{
 	public void setNom(String nom) {
 		typeContrat.setNom(nom);
 	}
-
-	
 
 }

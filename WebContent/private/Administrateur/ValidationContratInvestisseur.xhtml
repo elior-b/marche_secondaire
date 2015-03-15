@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Accueil du site - Dauphine Second Market</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="carousel.css" />
+	<h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+	<h:outputStylesheet library="css" name="navbar-fixed-top.css" />
+	<h:outputStylesheet library="css" name="dashboard.css" />
+	<h:outputStylesheet library="css" name="application.css" />
+
+</h:head>
+
+<h:outputScript library="js" name="jquery-2.1.3.min.js" />
+<h:outputScript library="js" name="bootstrap.min.js" />
+<h:outputScript library="js" name="docs.min.js" />
+<h:outputScript library="js" name="application.js" />
+<h:body>
+	<ui:include src="Header.xhtml" />
+	<div class="container-fluid">
+		<div class="row">
+			<ui:include src="Menu.xhtml" />
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<div class="row">
+					<h2>
+						<h:graphicImage value="/resources/img/complements.png"
+							class="img-title" alt="form" />
+						Formulaire de validation d'investisseur
+					</h2>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Societe</th>
+								<th>Type de contrat</th>
+								<th>Quantité</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat value="#{sessionScope.listeContrats}" var="liste">
+								<tr>
+									<th><h:outputText value="#{liste.id}" /></th>
+									<td><h:outputText value="#{liste.societe.nom}" /></td>
+									<td><h:outputText value="#{liste.typeContrat.nom}" /></td>
+									<td><h:outputText value="#{liste.quantite}" /></td>
+									<td><h:outputText value="#{liste.date}" /></td>
+								</tr>
+							</ui:repeat>
+
+						</tbody>
+					</table>
+					<h:form class="form-horizontal">
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-12">
+								<h:commandButton class="btn btn-default" type="reset"
+									value="Annuler" />
+								&nbsp;
+								<h:commandButton class="btn btn-success" value="Valider"
+									action="#{investisseurSessionBean.validerProfil}" />
+
+							</div>
+						</div>
+						<ui:repeat value="#{facesContext.messageList}" var="facesMessage">
+							<ui:fragment rendered="#{facesMessage.summary eq 'Erreur !'}">
+								<div class="alert alert-danger alert-dismissible" role="alert">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4>
+										<h:outputText value="#{facesMessage.summary}" />
+									</h4>
+									<h:outputText value="#{facesMessage.detail}" />
+								</div>
+							</ui:fragment>
+						</ui:repeat>
+						<h:messages globalOnly="false" style="display:none" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer> </footer>
+</h:body>
+</html>

@@ -4,56 +4,109 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head>
-        <title>Accueil du site - Dauphine Second Market </title>
-        <h:outputStylesheet library="css" name ="bootstrap.min.css" />
-        <h:outputStylesheet library="css" name ="carousel.css" />
-        <h:outputStylesheet library="css" name ="bootstrap-theme.min.css" />
-        <h:outputStylesheet library="css" name ="navbar-fixed-top.css" />
-        <h:outputStylesheet library="css" name ="application.css" />      
-        
-    </h:head>
-    
-        <h:outputScript library="js" name="jquery-2.1.3.min.js" />
-		<h:outputScript library="js" name="bootstrap.min.js" />
-		<h:outputScript library="js" name="docs.min.js" />
-		<h:outputScript library="js" name="application.js" />
- <h:body>
-   <ui:include src="Header.xhtml" />
-    <div class="container">
-    <h1>BIENVENUE  <h:outputText value="#{sessionScope.nom}" /> <h:outputText value="#{sessionScope.prenom}" /> (<h:outputText value="#{sessionScope.id}" />)</h1>
-   <h2>Offres achats/ventes</h2> 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+<h:head>
+	<title>Accueil du site - Dauphine Second Market</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="carousel.css" />
+	<h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+	<h:outputStylesheet library="css" name="navbar-fixed-top.css" />
+	<h:outputStylesheet library="css" name="application.css" />
 
-     </h:body>
-    </html>
+</h:head>
+
+<h:outputScript library="js" name="jquery-2.1.3.min.js" />
+<h:outputScript library="js" name="bootstrap.min.js" />
+<h:outputScript library="js" name="docs.min.js" />
+<h:outputScript library="js" name="application.js" />
+<h:body>
+	<ui:include src="Header.xhtml" />
+	<div class="container">
+		<h2>
+			<h:graphicImage value="/resources/img/contract.png" class="img-title"
+				alt="form" />
+			Offres
+		</h2>
+		<br />
+		<h:messages globalOnly="false" style="display:none" />
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#"
+				data-id="offre-achat">Offres achat</a></li>
+			<li role="presentation"><a href="#" data-id="offre-vente">Offres
+					vente</a></li>
+		</ul>
+		<div class="row row-tab" id="offre-achat">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Type de contrat</th>
+						<th>Société</th>
+						<th>Type d'offre</th>
+						<th>Quantité</th>
+						<th>Prix</th>
+						<th>Echéance</th>
+					</tr>
+				</thead>
+				<tbody>
+					<ui:repeat value="#{offreSessionBean.listeOffreAchat}" var="liste">
+						<tr>
+							<th><h:form>
+									<h:commandButton value="#{liste.id}"
+										action="#{offreSessionBean.voirOffre}">
+										<f:param name="id" value="#{liste.id}" />
+										<f:param name="type" value="achat" />
+									</h:commandButton>
+								</h:form></th>
+							<td><h:outputText value="#{liste.typeContrat.nom}" /></td>
+							<td><h:outputText value="#{liste.societe.nom}" /></td>
+							<td><h:outputText value="#{liste.typeOffre.nom}" /></td>
+							<td><h:outputText value="#{liste.quantite}" /></td>
+							<td><h:outputText value="#{liste.prix}" /></td>
+							<td><h:outputText value="#{liste.echeance}" /></td>
+						</tr>
+					</ui:repeat>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="row row-tab" id="offre-vente">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Type de contrat</th>
+						<th>Société</th>
+						<th>Type d'offre</th>
+						<th>Quantité</th>
+						<th>Prix</th>
+						<th>Echéance</th>
+					</tr>
+				</thead>
+				<tbody>
+					<ui:repeat value="#{offreSessionBean.listeOffreVente}" var="liste">
+						<tr>
+							<th><h:form>
+									<h:commandButton value="#{liste.id}"
+										action="#{offreSessionBean.voirOffre}">
+										<f:param name="id" value="#{liste.id}" />
+										<f:param name="type" value="vente" />
+									</h:commandButton>
+								</h:form></th>
+							<td><h:outputText value="#{liste.contrat.typeContrat.nom}" /></td>
+							<td><h:outputText value="#{liste.contrat.societe.nom}" /></td>
+							<td><h:outputText value="#{liste.typeOffre.nom}" /></td>
+							<td><h:outputText value="#{liste.quantite}" /></td>
+							<td><h:outputText value="#{liste.prix}" /></td>
+							<td><h:outputText value="#{liste.echeance}" /></td>
+						</tr>
+					</ui:repeat>
+
+				</tbody>
+			</table>
+		</div>
+
+
+	</div>
+
+</h:body>
+</html>

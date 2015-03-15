@@ -19,12 +19,16 @@
 
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="#"> Accueil </a></li>
+				<li><a href="Bienvenue.xhtml"> Accueil </a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Mon compte : Thibault Del Gatto </a></li>
-				<li><a href="#">Déconnexion</a></li>
+				<li><a href="#"><h:outputText
+							value="#{sessionScope.nom} #{sessionScope.prenom}" /> </a></li>
+				<li><h:form>
+						<h:commandLink action="#{deconnexionSessionBean.deconnexion}"
+							value="Deconnexion" />
+					</h:form></li>
 			</ul>
 		</div>
 		<!--/.nav-collapse -->
@@ -32,5 +36,5 @@
 
 	</nav>
 
-	
+
 </ui:composition>

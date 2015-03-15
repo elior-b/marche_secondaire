@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Accueil du site - Dauphine Second Market</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="carousel.css" />
+	<h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+	<h:outputStylesheet library="css" name="navbar-fixed-top.css" />
+	<h:outputStylesheet library="css" name="application.css" />
+
+</h:head>
+
+<h:outputScript library="js" name="jquery-2.1.3.min.js" />
+<h:outputScript library="js" name="bootstrap.min.js" />
+<h:outputScript library="js" name="docs.min.js" />
+<h:outputScript library="js" name="application.js" />
+<h:body>
+	<ui:include src="Header.xhtml" />
+	<f:event type="javax.faces.event.PreRenderViewEvent"
+		listener="#{applicationScopeBean.preRenderView}" />
+	<div class="container">
+		<div class="row">
+			<h2>
+				<h:graphicImage value="/resources/img/contract.png"
+					class="img-title" alt="form" />
+				Offre d'achat
+			</h2>
+			<h:form class="form-horizontal">
+				<div class="form-group">
+					<h:outputLabel class="col-sm-2 control-label" for="typeContrat">Type de contrat</h:outputLabel>
+					<div class="col-sm-10">
+						<h:selectOneMenu id="typeContrat"
+							value="#{offreSessionBean.responseSelectTypeContrat}"
+							class="form-control">
+							<f:selectItems value="#{typeContratSessionBean.listeTypeContrat}"
+								var="typeContrat" itemValue="#{typeContrat.id}"
+								itemLabel="#{typeContrat.nom}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel class="col-sm-2 control-label" for="typeSociete">Societe</h:outputLabel>
+					<div class="col-sm-10">
+						<h:selectOneMenu id="typeSociete"
+							value="#{offreSessionBean.responseSelectSociete}"
+							class="form-control">
+							<f:selectItems value="#{societeSessionBean.listeSocietes}"
+								var="societe" itemValue="#{societe.id}"
+								itemLabel="#{societe.nom}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel class="col-sm-2 control-label" for="typeOffre">Type d'offre</h:outputLabel>
+					<div class="col-sm-10">
+						<h:selectOneMenu id="typeOffre"
+							value="#{offreSessionBean.responseSelectTypeOffre}"
+							class="form-control">
+							<f:selectItems value="#{typeOffreSessionBean.listeTypeOffre}"
+								var="typeOffre" itemValue="#{typeOffre.id}"
+								itemLabel="#{typeOffre.nom}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel class="col-sm-2 control-label" for="prix">Prix</h:outputLabel>
+					<div class="col-sm-10">
+						<h:inputText class="form-control" id="prix"
+							value="#{offreSessionBean.prixOffre}" required="true" />
+						<h:message id="prixOffre" for="prix" errorClass="erreur" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel class="col-sm-2 control-label" for="quantite">Quantité</h:outputLabel>
+					<div class="col-sm-10">
+						<h:inputText class="form-control" id="quantite"
+							value="#{offreSessionBean.quantiteOffre}" required="true" />
+						<h:message id="quantiteOffre" for="quantite" errorClass="erreur" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel class="col-sm-2 control-label" for="echeance">Date Echeance</h:outputLabel>
+					<div class="col-sm-10">
+						<h:inputText class="form-control" id="echeance"
+							value="#{offreSessionBean.echeanceOffre}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:inputText>
+						<h:message id="echeanceOffre" for="echeance" errorClass="erreur" />
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<h:commandButton class="btn btn-default" type="reset"
+							value="Annuler" />
+						&nbsp;
+						<h:commandButton class="btn btn-success" value="Valider"
+							action="#{offreSessionBean.ajoutOffreAchat}"
+							styleClass="sansLabel" />
+					</div>
+				</div>
+				<ui:repeat value="#{facesContext.messageList}" var="facesMessage">
+					<ui:fragment rendered="#{facesMessage.summary eq 'Erreur !'}">
+						<div class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4>
+								<h:outputText value="#{facesMessage.summary}" />
+							</h4>
+							<h:outputText value="#{facesMessage.detail}" />
+						</div>
+					</ui:fragment>
+				</ui:repeat>
+				<h:messages globalOnly="false" style="display:none" />
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

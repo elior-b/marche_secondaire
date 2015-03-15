@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Accueil du site - Dauphine Second Market</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="carousel.css" />
+	<h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+	<h:outputStylesheet library="css" name="navbar-fixed-top.css" />
+	<h:outputStylesheet library="css" name="dashboard.css" />
+	<h:outputStylesheet library="css" name="application.css" />
+
+</h:head>
+
+<h:outputScript library="js" name="jquery-2.1.3.min.js" />
+<h:outputScript library="js" name="bootstrap.min.js" />
+<h:outputScript library="js" name="docs.min.js" />
+<h:outputScript library="js" name="application.js" />
+<h:body>
+	<ui:include src="Header.xhtml" />
+	<div class="container-fluid">
+		<div class="row">
+			<ui:include src="Menu.xhtml" />
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<div class="row">
+					<h2>
+						<h:graphicImage value="/resources/img/complements.png"
+							class="img-title" alt="form" />
+						Liste des investisseurs à valider
+					</h2>
+					<br />
+					<h:messages globalOnly="true" infoClass="info" />
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Solde</th>
+								<th>Login</th>
+								<th>E-Mail</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat
+								value="#{investisseurSessionBean.listeInvestisseurAValider}"
+								var="liste">
+								<tr>
+									<th><h:form>
+											<h:commandButton value="#{liste.id}"
+												action="#{investisseurSessionBean.voirContrat}">
+												<f:param name="id" value="#{liste.id}" />
+											</h:commandButton>
+										</h:form></th>
+									<td><h:outputText value="#{liste.nom}" /></td>
+									<td><h:outputText value="#{liste.prenom}" /></td>
+									<td><h:outputText value="#{liste.solde}" /></td>
+									<td><h:outputText value="#{liste.login}" /></td>
+									<td><h:outputText value="#{liste.email}" /></td>
+								</tr>
+							</ui:repeat>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer> </footer>
+</h:body>
+</html>

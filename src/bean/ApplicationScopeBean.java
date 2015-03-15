@@ -1,6 +1,5 @@
 package bean;
 
-
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -10,11 +9,17 @@ import javax.servlet.http.HttpSession;
 @ApplicationScoped
 public class ApplicationScopeBean {
 
-   public void preRenderView() {
-      HttpSession session = ( HttpSession ) FacesContext.getCurrentInstance().getExternalContext().getSession( true );
-      //tune session params, eg. session.setMaxInactiveInterval(..);
+	public void preRenderView() {
+		try {
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext().getSession(true);
 
-      //perform other pre-render stuff, like setting user context...
-   }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// tune session params, eg. session.setMaxInactiveInterval(..);
+
+		// perform other pre-render stuff, like setting user context...
+	}
 
 }

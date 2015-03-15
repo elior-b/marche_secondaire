@@ -30,99 +30,90 @@ public class ContratSessionBean extends JavaPersistenceUtilitaire {
 	Contrat contrat = new Contrat();
 	int responseSelectSociete;
 	int responseSelectTypeContrat;
+	List<Contrat> listeContratInvestisseur;
 	boolean checkbox;
-    /**
-     * Default constructor. 
-     */
-    public ContratSessionBean() {
-        // TODO Auto-generated constructor stub
+
+	// EntityManager em;
+	/**
+	 * Default constructor.
+	 */
+	public ContratSessionBean() {
+		// TODO Auto-generated constructor stub
 		emf = JavaPersistenceUtilitaire.getEmf();
-    }
-    
-    private EntityManager getEntityManager() {
+	}
+
+	private EntityManager getEntityManager() {
 		return emf.createEntityManager();
 	}
-    
-    
-    
-    public void insertionContrat(){
-    	
-    	
-    	  EntityManager em = null;
-    	  
-    	 // try{
-          em = getEntityManager();
-          em.getTransaction().begin();
-          
-          ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-          int idInvestisseur = (Integer) ec.getSessionMap().get("id");
-          
-          
-          /*
-           * Recuperation INVESTISSEUR EN DUR ---> TEST AVANT VAR DE SESSION
-           */
-          Query q = em.createNamedQuery("Investisseur.findById");
-          q.setParameter("IdInvestisseur", idInvestisseur);
-	      Investisseur i = (Investisseur) q.getSingleResult();
-          
-         Contrat newContrat = new Contrat();
-         Societe s =  transfoSociete(responseSelectSociete);
-         newContrat.setSociete(s);
-         newContrat.setQuantite(contrat.getQuantite());
-         TypeContrat tc = transfoTypeContrat(responseSelectTypeContrat);
-         newContrat.setTypeContrat(tc);
-         newContrat.setInvestisseur(i);
-         
-         if(contrat.getDate() != null){
-        	 newContrat.setDate(contrat.getDate());
-         }
-         
-         if(isCheckbox()){
-        	 i.setStatut(1);
-        	 em.persist(i);
-        	 FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("OK OK TERMINE"));
-        	 em.persist(newContrat);
-             em.getTransaction().commit();
-             em.close();
-        	 try {
-				ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	 
-         }else{
-        	 FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("OK CONTINUEZ OKLM "));
-        	 em.persist(newContrat);
-             em.getTransaction().commit();
-             em.close();
-        	 try {
-				ec.redirect(ec.getRequestContextPath() + "/private/investisseur/ComplementsInformations.xhtml");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	// ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 
-         }
-         
-         
-        
-//    	  }catch(Exception e){
-//    		  
-//    	  }
-         
-   	
-          
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+	public void insertionContrat() {
+
+		FacesMessage msg = new FacesMessage();
+		try {
+			EntityManager em = null;
+			em = getEntityManager();
+			em.getTransaction().begin();
+			ExternalContext ec = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			int idInvestisseur = (Integer) ec.getSessionMap().get("id");
+			Query q = em.createNamedQuery("Investisseur.findById");
+			q.setParameter("IdInvestisseur", idInvestisseur);
+			Investisseur i = (Investisseur) q.getSingleResult();
+
+			if (i != null) {
+				if (contrat.getQuantite() > 0) {
+					Contrat newContrat = new Contrat();
+					Societe s = transfoSociete(responseSelectSociete);
+					newContrat.setSociete(s);
+					newContrat.setQuantite(contrat.getQuantite());
+					TypeContrat tc = transfoTypeContrat(responseSelectTypeContrat);
+					newContrat.setTypeContrat(tc);
+					newContrat.setInvestisseur(i);
+
+					if (contrat.getDate() != null) {
+						newContrat.setDate(contrat.getDate());
+					}
+
+					if (isCheckbox()) {
+						i.setStatut(1);
+						em.persist(i);
+						em.persist(newContrat);
+						em.getTransaction().commit();
+						em.clear();
+						em.close();
+
+						ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
+
+					} else {
+						msg.setDetail("Votre contrat à bien été ajouté. Vous pouvez continuer !");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+						em.persist(newContrat);
+						em.getTransaction().commit();
+						em.clear();
+						em.close();
+						ec.redirect(ec.getRequestContextPath()
+								+ "/private/investisseur/ComplementsInformations.xhtml");
+
+					}
+				} else {
+					msg.setSummary("Erreur !");
+					msg.setDetail("Erreur quantité");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} else {
+				msg.setSummary("Erreur !");
+				msg.setDetail("Erreur investisseur");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			em.clear();
+			em.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public Date getDateContrat() {
 		return contrat.getDate();
 	}
@@ -162,11 +153,11 @@ public class ContratSessionBean extends JavaPersistenceUtilitaire {
 	public void setTypeContratContrat(TypeContrat typeContrat) {
 		contrat.setTypeContrat(typeContrat);
 	}
-	
+
 	public int getResponseSelectSociete() {
 		return responseSelectSociete;
 	}
-	
+
 	public boolean isCheckbox() {
 		return checkbox;
 	}
@@ -186,36 +177,59 @@ public class ContratSessionBean extends JavaPersistenceUtilitaire {
 	public void setResponseSelectSociete(int responseSelect) {
 		this.responseSelectSociete = responseSelect;
 	}
-	
-	   public Societe transfoSociete(int id){
-			
-		  	EntityManager em = null;
-	        em = getEntityManager();
-	        em.getTransaction().begin();
-	        Query q = em.createNamedQuery("Societe.findById");
-	        q.setParameter("IdSociete", id);
-	        Societe s = (Societe) q.getSingleResult();  
-            em.close();
 
-   		return s;
+	public Societe transfoSociete(int id) {
 
-  }
-	   
-	   public TypeContrat transfoTypeContrat(int id){
-			
-		  	EntityManager em = null;
-	        em = getEntityManager();
-	        em.getTransaction().begin();
-	        Query q = em.createNamedQuery("TypeContrat.findById");
-	        q.setParameter("IdTypeContrat", id);
-	        TypeContrat tc = (TypeContrat) q.getSingleResult();  
-            em.close();
+		EntityManager em = null;
+		em = getEntityManager();
+		em.getTransaction().begin();
+		Query q = em.createNamedQuery("Societe.findById");
+		q.setParameter("IdSociete", id);
+		Societe s = (Societe) q.getSingleResult();
+		em.clear();
+		em.close();
 
+		return s;
 
-  		return tc;
+	}
 
- }
-    
-    
+	public TypeContrat transfoTypeContrat(int id) {
+
+		EntityManager em = null;
+		em = getEntityManager();
+		em.getTransaction().begin();
+		Query q = em.createNamedQuery("TypeContrat.findById");
+		q.setParameter("IdTypeContrat", id);
+		TypeContrat tc = (TypeContrat) q.getSingleResult();
+		em.clear();
+		em.close();
+
+		return tc;
+
+	}
+
+	public List<Contrat> getListeContratInvestisseur() {
+		EntityManager em = null;
+		em = getEntityManager();
+		em.getTransaction().begin();
+		ExternalContext ec = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		int idInvestisseur = (Integer) ec.getSessionMap().get("id");
+		Query q = em.createNamedQuery("Investisseur.findById");
+		q.setParameter("IdInvestisseur", idInvestisseur);
+		Investisseur i = (Investisseur) q.getSingleResult();
+
+		q = em.createNamedQuery("Contrat.findByInvestisseur");
+		q.setParameter("Investisseur", i);
+		listeContratInvestisseur = q.getResultList();
+		em.clear();
+		em.close();
+
+		return listeContratInvestisseur;
+	}
+
+	public void setListeContratInvestisseur(List<Contrat> listeContrat) {
+		this.listeContratInvestisseur = listeContrat;
+	}
 
 }

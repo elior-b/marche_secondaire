@@ -5,17 +5,23 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li><a href="#">Test </a></li>
-					<li><a href="#">Test </a></li>
-				</ul>
-				<ul class="nav nav-sidebar">
-					<li><a href="#">Test</a></li>
-				</ul>
-				<ul class="nav nav-sidebar">
-					<li><a href="#">Mon compte : Thibault Del Gatto </a></li>
-					<li><a href="#">Déconnexion</a></li>
-				</ul>
-			</div>
-	
+		<ul class="nav nav-sidebar">
+			<li><a href="Bienvenue.xhtml">Accueil </a></li>
+		</ul>
+		<ul class="nav nav-sidebar">
+			<li><a href="AccreditationSociete.xhtml">Accréditer une
+					société </a></li>
+			<li><a href="CreationMembreSociete.xhtml">Créer un membre
+					société</a></li>
+			<li><a href="ValidationInvestisseur.xhtml">Valider un
+					investisseur</a></li>
+		</ul>
+		<ul class="nav nav-sidebar">
+			<li><h:form>
+					<h:commandLink action="#{deconnexionSessionBean.deconnexion}"
+						value="Deconnexion" />
+				</h:form></li>
+		</ul>
+	</div>
+
 </ui:composition>

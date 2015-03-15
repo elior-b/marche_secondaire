@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#index2.xhtml" PATH="/index2.xhtml"
-  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#index2.xhtml:0" NAME="item"
-   PATH="/index2.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="::#index2.xhtml" NAME="output"
-    PATH="/index2.xhtml" TARGET="rules:#index2.xhtml" TITLE="[any]" model-entity="JSFProcessItemOutput"/>
+ <PROCESS-ITEM NAME="rules:#TimerPresentation.xhtml"
+  PATH="/TimerPresentation.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#TimerPresentation.xhtml:0" NAME="item"
+   PATH="/TimerPresentation.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="::#TimerPresentation.xhtml" NAME="output"
+    PATH="/TimerPresentation.xhtml"
+    TARGET="rules:#TimerPresentation.xhtml" TITLE="[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM

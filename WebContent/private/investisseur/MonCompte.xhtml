@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Accueil du site - Dauphine Second Market</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="carousel.css" />
+	<h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+	<h:outputStylesheet library="css" name="navbar-fixed-top.css" />
+	<h:outputStylesheet library="css" name="application.css" />
+
+</h:head>
+
+<h:outputScript library="js" name="jquery-2.1.3.min.js" />
+<h:outputScript library="js" name="bootstrap.min.js" />
+<h:outputScript library="js" name="docs.min.js" />
+<h:outputScript library="js" name="application.js" />
+<h:body>
+	<ui:include src="Header.xhtml" />
+	<div class="container">
+		<h2>
+			<h:graphicImage value="/resources/img/investor.png" class="img-title"
+				alt="form" />
+			Mon compte : <h:outputText value="#{investisseurSessionBean.solde} €" />
+		</h2>
+		<h:messages globalOnly="true" infoClass="info" />
+
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#"
+				data-id="compte-achat">Mes Offres D'Achat</a></li>
+			<li role="presentation"><a href="#" data-id="compte-vente">Mes
+					Offres De Vente</a></li>
+			<li role="presentation"><a href="#" data-id="compte-enchere">Mes
+					Enchères</a></li>
+			<li role="presentation"><a href="#"
+				data-id="compte-transaction">Mes Transactions</a></li>
+		</ul>
+		<div class="row row-tab" id="compte-achat">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Type</th>
+						<th>Type de contrat</th>
+						<th>Société</th>
+						<th>Type d'offre</th>
+						<th>Quantité</th>
+						<th>Prix</th>
+						<th>Echéance</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<ui:repeat value="#{offreSessionBean.listeOffreInvestisseurAchat}"
+						var="liste">
+						<tr>
+							<th><h:outputText value="#{liste.id}" /></th>
+							<td><h:outputText value="Achat" /></td>
+							<td><h:outputText value="#{liste.typeContrat.nom}" /></td>
+							<td><h:outputText value="#{liste.societe.nom}" /></td>
+							<td><h:outputText value="#{liste.typeOffre.nom}" /></td>
+							<td><h:outputText value="#{liste.quantite}" /></td>
+							<td><h:outputText value="#{liste.prix}" /></td>
+							<td><h:outputText value="#{liste.echeance}" /></td>
+						</tr>
+
+					</ui:repeat>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="row row-tab" id="compte-vente">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Type</th>
+						<th>Type de contrat</th>
+						<th>Société</th>
+						<th>Type d'offre</th>
+						<th>Quantité</th>
+						<th>Prix</th>
+						<th>Echéance</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<ui:repeat value="#{offreSessionBean.listeOffreInvestisseurVente}"
+						var="liste">
+						<tr>
+							<th><h:outputText value="#{liste.id}" /></th>
+							<td><h:outputText value="Vente" /></td>
+							<td><h:outputText value="#{liste.contrat.typeContrat.nom}" /></td>
+							<td><h:outputText value="#{liste.contrat.societe.nom}" /></td>
+							<td><h:outputText value="#{liste.typeOffre.nom}" /></td>
+							<td><h:outputText value="#{liste.quantite}" /></td>
+							<td><h:outputText value="#{liste.prix}" /></td>
+							<td><h:outputText value="#{liste.echeance}" /></td>
+						</tr>
+
+					</ui:repeat>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="row row-tab" id="compte-enchere">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Montant</th>
+						<th>Date</th>
+						<th>Quantité</th>
+						<th>Prix offre</th>
+						<th>Offre</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<ui:repeat value="#{offreSessionBean.listeEnchereInvestisseur}"
+						var="liste">
+						<tr>
+							<th><h:outputText value="#{liste.id}" /></th>
+							<td><h:outputText value="#{liste.prix}" /></td>
+							<td><h:outputText value="#{liste.date}" /></td>
+							<td><h:outputText value="#{liste.offre.quantite}" /></td>
+							<td><h:outputText value="#{liste.offre.prix}" /></td>
+							<td><h:form>
+									<h:commandButton value="#{liste.offre.id}">
+										<f:param name="id" value="#{liste.offre.id}" />
+										<c:if test="#{liste.offre.type eq 0}">
+											<f:param name="type" value="achat" />
+										</c:if>
+										<c:if test="#{liste.offre.type eq 1}">
+											<f:param name="type" value="vente" />
+										</c:if>
+									</h:commandButton>
+								</h:form></td>
+
+						</tr>
+
+					</ui:repeat>
+
+				</tbody>
+			</table>
+		</div>
+
+
+		<div class="row row-tab" id="compte-transaction">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Emetteur</th>
+						<th>Recepteur</th>
+						<th>Date</th>
+						<th>Quantite</th>
+						<th>Offre</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<ui:repeat value="#{transactionSessionBean.listeTransactions}"
+						var="liste">
+						<tr>
+							<th><h:outputText value="#{liste.id}" /></th>
+							<td><h:outputText
+									value="#{liste.offre.investisseur.nom} #{liste.offre.investisseur.prenom}" /></td>
+							<td><h:outputText
+									value="#{liste.investisseur.nom} #{liste.investisseur.prenom}" /></td>
+							<td><h:outputText value="#{liste.date}" /></td>
+							<td><h:outputText value="#{liste.offre.quantite}" /></td>
+							<td><h:form>
+									<h:commandButton value="#{liste.offre.id}">
+										<f:param name="id" value="#{liste.offre.id}" />
+										<c:if test="#{liste.offre.type eq 0}">
+											<f:param name="type" value="achat" />
+										</c:if>
+										<c:if test="#{liste.offre.type eq 1}">
+											<f:param name="type" value="vente" />
+										</c:if>
+									</h:commandButton>
+								</h:form></td>
+
+						</tr>
+
+					</ui:repeat>
+
+				</tbody>
+			</table>
+		</div>
+
+
+	</div>
+
+</h:body>
+</html>

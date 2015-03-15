@@ -2,6 +2,8 @@ package bean;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,9 +15,15 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import model.Administrateur;
+import model.Contrat;
+import model.DonneeFinanciere;
 import model.Investisseur;
+import model.MembreSociete;
+import model.Offre;
+import model.Societe;
 import utilitaire.Fonction;
 import utilitaire.JavaPersistenceUtilitaire;
 
@@ -27,6 +35,9 @@ import utilitaire.JavaPersistenceUtilitaire;
 public class InvestisseurSessionBean extends JavaPersistenceUtilitaire {
 	Investisseur investisseur = new Investisseur();
 	String confirmationMotDePasse;
+	private List<Investisseur> ListeInvestisseurAValider;
+	private List<Investisseur> ListeInvestisseurs;
+	double solde;
 
 	/**
 	 * Default constructor.
@@ -40,24 +51,27 @@ public class InvestisseurSessionBean extends JavaPersistenceUtilitaire {
 		return emf.createEntityManager();
 	}
 
-	
 	public void inscriptionInvestisseur() throws IOException {
-		EntityManager em = null;
+		FacesMessage msg = new FacesMessage();
 		try {
+			EntityManager em = null;
+			msg.setSummary("Erreur !");
 			em = getEntityManager();
 			em.getTransaction().begin();
-
 			Investisseur newInvestisseur = new Investisseur();
 
 			/*
 			 * Verification de la conformiter du champ SOLDE
 			 */
-			if (investisseur.getSolde() > 0 ) {
+			if (investisseur.getSolde() > 0) {
 				/*
 				 * Verification de la conformiter des champs CARTE BLEUE &
 				 * CRYTPOGRAMME
 				 */
-				if (Fonction.verificationChaineRegex(investisseur.getCarteBleue(), 16) && Fonction.verificationNumRegex(investisseur.getCryptogramme(), 3)) {
+				if (Fonction.verificationChaineRegex(
+						investisseur.getCarteBleue(), 16)
+						&& Fonction.verificationNumRegex(
+								investisseur.getCryptogramme(), 3)) {
 					/*
 					 * Verification de la conformiter du champs MAIL
 					 */
@@ -65,7 +79,8 @@ public class InvestisseurSessionBean extends JavaPersistenceUtilitaire {
 						/*
 						 * Verification du mot de passe
 						 */
-						if (investisseur.getMotDePasse().equals(confirmationMotDePasse)) {
+						if (investisseur.getMotDePasse().equals(
+								confirmationMotDePasse)) {
 
 							/*
 							 * Tout est OK
@@ -75,51 +90,55 @@ public class InvestisseurSessionBean extends JavaPersistenceUtilitaire {
 							newInvestisseur.setPrenom(investisseur.getPrenom());
 							newInvestisseur.setEmail(investisseur.getEmail());
 							newInvestisseur.setSolde(investisseur.getSolde());
-							newInvestisseur.setCarteBleue(investisseur.getCarteBleue());
-							newInvestisseur.setCryptogramme(investisseur.getCryptogramme());
+							newInvestisseur.setCarteBleue(investisseur
+									.getCarteBleue());
+							newInvestisseur.setCryptogramme(investisseur
+									.getCryptogramme());
 							newInvestisseur.setStatut(0);
 							String login = Fonction.generateString(5, "INV");
 							newInvestisseur.setLogin(login);
-							newInvestisseur.setMotDePasse(Fonction.hashMotDePasse(investisseur.getMotDePasse()));
+							newInvestisseur.setMotDePasse(Fonction
+									.hashMotDePasse(investisseur
+											.getMotDePasse()));
 
 							em.persist(newInvestisseur);
 							em.getTransaction().commit();
-							//em.close();
-							
-							FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Inscription Effectuee - Votre Login est :" +login ));
 
-						}else{
-							FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur Sur le Mot De Passe"));
+							msg.setSummary("Felicitations !");
+							msg.setDetail("Inscription effectuee - Votre login est :"
+									+ login);
+							FacesContext.getCurrentInstance().addMessage(null,
+									msg);
+
+						} else {
+							msg.setDetail("Erreur mot de passe");
+							FacesContext.getCurrentInstance().addMessage(null,
+									msg);
 						}
 
-					}else{
-						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur Sur l'EMAIL"));
-
+					} else {
+						msg.setDetail("Erreur email");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
 					}
 
-				}else{
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur Sur la CARTE BLEUE OU CRYPTO"));
-
+				} else {
+					msg.setDetail("Erreur CB/Cryto");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
 				}
-			}else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur Sur le montant"));
-
+			} else {
+				msg.setDetail("Erreur montant");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 
-
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une Erreur est survenue lors de cette inscription"));
-
-		} finally {
+			em.clear();
 			em.close();
-
+		} catch (Exception e) {
+			msg.setDetail("Erreur inscription");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 
 	}
-	
-	
-	
-	
+
 	public String getCarteBleueInvestisseur() {
 		return investisseur.getCarteBleue();
 	}
@@ -189,7 +208,7 @@ public class InvestisseurSessionBean extends JavaPersistenceUtilitaire {
 	}
 
 	public void setMotDePasseInvestisseur(String motDePasse) {
-			investisseur.setMotDePasse(motDePasse);
+		investisseur.setMotDePasse(motDePasse);
 	}
 
 	public String getConfirmationMotDePasse() {
@@ -199,8 +218,119 @@ public class InvestisseurSessionBean extends JavaPersistenceUtilitaire {
 	public void setConfirmationMotDePasse(String confirmationMotDePasse) {
 		this.confirmationMotDePasse = confirmationMotDePasse;
 	}
-	
-	
+
+	public List<Investisseur> getListeInvestisseurAValider() {
+		EntityManager em;
+		em = getEntityManager();
+		em.getTransaction().begin();
+
+		Query q = em.createNamedQuery("Investisseur.findByStatut");
+		q.setParameter("Statut", 1);
+		ListeInvestisseurAValider = q.getResultList();
+
+		em.clear();
+		em.close();
+		return ListeInvestisseurAValider;
+	}
+
+	public void setListeInvestisseurAValider(
+			List<Investisseur> listeInvestisseurAValider) {
+		ListeInvestisseurAValider = listeInvestisseurAValider;
+	}
+
+	public void voirContrat() {
+		try {
+			EntityManager em = null;
+			em = getEntityManager();
+			em.getTransaction().begin();
+			ExternalContext ec = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			Map<String, String> params = ec.getRequestParameterMap();
+			int idInvestisseurParam = Integer.parseInt(params.get("id"));
+			Query q = em.createNamedQuery("Investisseur.findById");
+			q.setParameter("IdInvestisseur", idInvestisseurParam);
+			Investisseur i = (Investisseur) q.getSingleResult();
+
+			q = em.createNamedQuery("Contrat.findByInvestisseur");
+			q.setParameter("Investisseur", i);
+			List<Contrat> listeContrats = q.getResultList();
+			ec.getSessionMap().put("listeContrats", listeContrats);
+			ec.getSessionMap().put("idInvestisseur", idInvestisseurParam);
+			em.clear();
+			em.close();
+			ec.redirect(ec.getRequestContextPath()
+					+ "/private/administrateur/ValidationContratInvestisseur.xhtml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void validerProfil() {
+		FacesMessage msg = new FacesMessage();
+		try {
+			EntityManager em = null;
+			em = getEntityManager();
+			msg.setSummary("Erreur !");
+			em.getTransaction().begin();
+			ExternalContext ec = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			int idInvestisseur = (Integer) ec.getSessionMap().get(
+					"idInvestisseur");
+			Query q = em.createNamedQuery("Investisseur.findById");
+			q.setParameter("IdInvestisseur", idInvestisseur);
+			Investisseur i = (Investisseur) q.getSingleResult();
+
+			i.setStatut(2);
+			em.persist(i);
+			em.getTransaction().commit();
+			em.clear();
+			em.close();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("INVESTISSEUR VALIDE"));
+
+			ec.redirect(ec.getRequestContextPath()
+					+ "/private/administrateur/ValidationInvestisseur.xhtml");
+		} catch (IOException e) {
+			msg.setDetail("Erreur validation");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+
+	}
+
+	public List<Investisseur> getListeInvestisseurs() {
+		EntityManager em = null;
+		em = getEntityManager();
+		em.getTransaction().begin();
+		Query q = em.createNamedQuery("Investisseur.findAll");
+		List<Investisseur> ListeInvestisseurs = q.getResultList();
+		em.clear();
+		em.close();
+		return ListeInvestisseurs;
+	}
+
+	public void setListeInvestisseurs(List<Investisseur> listeInvestisseurs) {
+		ListeInvestisseurs = listeInvestisseurs;
+	}
+
+	public double getSolde() {
+		EntityManager em = null;
+		em = getEntityManager();
+		em.getTransaction().begin();
+		ExternalContext ec = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		int idInvestisseur = (Integer) ec.getSessionMap().get("id");
+		Query q = em.createNamedQuery("Investisseur.findById");
+		q.setParameter("IdInvestisseur", idInvestisseur);
+		Investisseur i = (Investisseur) q.getSingleResult();
+		solde = i.getSolde();
+		em.clear();
+		em.close();
+		return solde;
+	}
+
+	public void setSolde(double solde) {
+		this.solde = solde;
+	}
 	
 	
 
