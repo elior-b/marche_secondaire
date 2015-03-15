@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Accueil du site - Dauphine Second Market</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="carousel.css" />
+	<h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+	<h:outputStylesheet library="css" name="navbar-fixed-top.css" />
+	<h:outputStylesheet library="css" name="application.css" />
+
+</h:head>
+
+<h:outputScript library="js" name="jquery-2.1.3.min.js" />
+<h:outputScript library="js" name="bootstrap.min.js" />
+<h:outputScript library="js" name="docs.min.js" />
+<h:outputScript library="js" name="chart.min.js" />
+<h:outputScript library="js" name="application.js" />
+<h:body>
+	<ui:include src="Header.xhtml" />
+	<div class="container">
+		<h2>
+			<h:graphicImage value="/resources/img/company.png" class="img-title"
+				alt="form" />
+			Société :
+			<h:outputText value="#{societeSessionBean.societeAffichage.nom}" />
+		</h2>
+		<br />
+		<h:messages globalOnly="true" infoClass="info" />
+
+
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#"
+				data-id="societe-index">Société</a></li>
+			<li role="presentation"><a href="#" data-id="societe-donnees">Données
+					financières</a></li>
+			<li role="presentation"><a href="#"
+				data-id="societe-graphiques">Graphiques</a></li>
+		</ul>
+
+		<div class="row row-tab" id="societe-index">
+			<table
+				class="table table-bordered table-condensed table-format table-min-width">
+				<tr>
+					<th>Nom</th>
+					<td colspan="4"><h:outputText
+							value="#{societeSessionBean.societeAffichage.nom}" /></td>
+				</tr>
+				<tr>
+					<th>Secteur d'activités</th>
+					<td><h:outputText
+							value="#{societeSessionBean.societeAffichage.secteurActivite}" /></td>
+					<th>Capitalisation boursière</th>
+					<td><h:outputText
+							value="#{societeSessionBean.societeAffichage.capitalisationBoursiere}" /></td>
+				</tr>
+				<tr>
+					<th>Raison sociale</th>
+					<td><h:outputText
+							value="#{societeSessionBean.societeAffichage.raisonSociale}" /></td>
+					<th>Dirigeant</th>
+					<td><h:outputText
+							value="#{societeSessionBean.societeAffichage.dirigeant}" /></td>
+				</tr>
+			</table>
+			<table
+				class="table table-bordered table-condensed table-format table-min-width">
+				<tr>
+					<th>Adresse</th>
+					<td colspan="4"><h:outputText
+							value="#{societeSessionBean.societeAffichage.adresse}" /></td>
+
+				</tr>
+				<tr>
+					<th>Téléphone</th>
+					<td><h:outputText
+							value="#{societeSessionBean.societeAffichage.telephone}" /></td>
+					<th>Site internet</th>
+					<td><h:outputText
+							value="#{societeSessionBean.societeAffichage.siteWeb}" /></td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td colspan="4">
+						<p>
+							<h:outputText
+								value="#{societeSessionBean.societeAffichage.description}" />
+						</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="row row-tab" id="societe-donnees">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Année</th>
+						<th>PNB</th>
+						<th>CA</th>
+						<th>REX</th>
+						<th>Coût du risque</th>
+						<th>RCAI</th>
+						<th>RN</th>
+					</tr>
+				</thead>
+				<tbody>
+					<ui:repeat
+						value="#{donneeFinanciereSessionBean.listeDonneeFinanciere}"
+						var="liste">
+						<tr>
+							<th><h:outputText value="#{liste.id}" /></th>
+							<td><h:outputText value="#{liste.annee}" /></td>
+							<td><h:outputText value="#{liste.pnb}" /></td>
+							<td><h:outputText value="#{liste.ca}" /></td>
+							<td><h:outputText value="#{liste.rex}" /></td>
+							<td><h:outputText value="#{liste.coutRisque}" /></td>
+							<td><h:outputText value="#{liste.rcai}" /></td>
+							<td><h:outputText value="#{liste.rn}" /></td>
+						</tr>
+					</ui:repeat>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="row row-tab" id="societe-graphiques">
+			<div class="col-sm-6">
+				<canvas id="lineChart-canvas" height="450" width="600" />
+			</div>
+			<div class="col-sm-6">
+				<canvas id="barChart-canvas" height="450" width="600" />
+			</div>
+		</div>
+
+
+	</div>
+
+</h:body>
+</html>
